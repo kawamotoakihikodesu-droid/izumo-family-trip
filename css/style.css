@@ -1863,3 +1863,307 @@ img {
     padding: 16px 0 !important;
   }
 }
+
+/* ==========================================================================
+   家族会議用：希望スポット8箇所 到達範囲＆優先順位ガイド スタイル
+   ========================================================================== */
+.reach-diagram-box {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 24px;
+  box-shadow: var(--shadow-card);
+  margin-bottom: 28px;
+}
+
+.reach-zones {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 14px;
+  margin-bottom: 18px;
+}
+
+.reach-zone {
+  background: var(--color-bg-base);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  font-size: 0.84rem;
+}
+
+.reach-zone.zone-far {
+  background: #fafafa;
+  border-style: dashed;
+  opacity: 0.85;
+}
+
+.zone-header {
+  font-family: var(--font-serif);
+  font-weight: 700;
+  font-size: 0.88rem;
+  color: var(--color-primary-dark);
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+  border-bottom: 1px solid var(--color-border-subtle);
+}
+
+.reach-zone ul {
+  list-style: none;
+}
+
+.reach-zone li {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  margin-bottom: 6px;
+  line-height: 1.45;
+  flex-wrap: wrap;
+}
+
+.reach-zone li small {
+  color: var(--color-text-muted);
+  font-size: 0.74rem;
+}
+
+.status-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  margin-top: 5px;
+  flex-shrink: 0;
+}
+
+.status-dot.ok       { background: #27ae60; }
+.status-dot.car-only { background: #c43d27; }
+.status-dot.hotel    { background: #f39c12; }
+.status-dot.opt      { background: #8e44ad; }
+.status-dot.skip     { background: #7f8c8d; }
+
+.reach-summary-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.reach-bar {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  border-radius: var(--radius-sm);
+  font-size: 0.86rem;
+  flex-wrap: wrap;
+}
+
+.reach-bar.bar-car {
+  background: #fff4f2;
+  border-left: 4px solid #c43d27;
+}
+
+.reach-bar.bar-transit {
+  background: #edf8f2;
+  border-left: 4px solid #27ae60;
+}
+
+.bar-label {
+  font-weight: 800;
+  white-space: nowrap;
+}
+
+.bar-car .bar-label { color: #c43d27; }
+.bar-transit .bar-label { color: #27ae60; }
+
+/* 8スポット評価カード */
+.spot-eval-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  margin-bottom: 32px;
+}
+
+.spot-eval-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 18px 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.eval-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.eval-rank {
+  font-size: 0.72rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: var(--radius-full);
+}
+
+.rank-a { background: #fdf2dc; color: #9a6b11; }
+.rank-b { background: #eef3fa; color: #1e3a5f; }
+
+.eval-badges {
+  display: flex;
+  gap: 4px;
+}
+
+.mini-badge {
+  font-size: 0.72rem;
+  font-weight: 700;
+  padding: 2px 6px;
+  border-radius: 4px;
+}
+
+.mini-badge.car-ok     { background: #ffeae8; color: #c43d27; }
+.mini-badge.transit-ok { background: #eafaf1; color: #1e8449; }
+.mini-badge.transit-ng { background: #f2f4f4; color: #7f8c8d; }
+
+.spot-eval-card h4 {
+  font-family: var(--font-serif);
+  font-size: 1.05rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 6px;
+}
+
+.spot-eval-card p {
+  font-size: 0.84rem;
+  color: var(--color-text-muted);
+  line-height: 1.6;
+}
+
+/* 入れない理由・優先順位ガイドボックス */
+.exclusion-guide-box {
+  background: var(--color-surface);
+  border: 2px solid #e6d5b8;
+  border-radius: var(--radius-md);
+  padding: 26px 24px;
+  box-shadow: var(--shadow-card);
+}
+
+.exclusion-header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 8px;
+}
+
+.exclusion-header svg {
+  width: 24px;
+  height: 24px;
+  color: var(--color-accent);
+  flex-shrink: 0;
+}
+
+.exclusion-header h3 {
+  font-family: var(--font-serif);
+  font-size: 1.25rem;
+  color: var(--color-primary-dark);
+}
+
+.exclusion-lead {
+  font-size: 0.9rem;
+  color: var(--color-text-muted);
+  margin-bottom: 20px;
+}
+
+.exclusion-cards {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.exclusion-card {
+  border-radius: var(--radius-sm);
+  padding: 18px 18px;
+  border: 1px solid var(--color-border-subtle);
+}
+
+.exclusion-card.ex-low {
+  background: #fdf6f6;
+  border-left: 4px solid #7f8c8d;
+}
+
+.exclusion-card.ex-opt {
+  background: #f9f5fc;
+  border-left: 4px solid #8e44ad;
+}
+
+.exclusion-card.ex-transit {
+  background: #f4fbf7;
+  border-left: 4px solid #27ae60;
+}
+
+.ex-badge-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 8px;
+}
+
+.ex-priority {
+  font-size: 0.74rem;
+  font-weight: 800;
+  padding: 3px 10px;
+  border-radius: var(--radius-full);
+}
+
+.ex-priority.low          { background: #ebedef; color: #4d5656; }
+.ex-priority.opt          { background: #ebdef0; color: #6c3483; }
+.ex-priority.transit-only { background: #d4efdf; color: #196f3d; }
+
+.ex-access {
+  font-size: 0.76rem;
+  font-weight: 700;
+  color: var(--color-text-muted);
+}
+
+.exclusion-card h4 {
+  font-family: var(--font-serif);
+  font-size: 1.08rem;
+  color: var(--color-primary-dark);
+  margin-bottom: 10px;
+}
+
+.exclusion-card ul {
+  list-style: none;
+}
+
+.exclusion-card li {
+  font-size: 0.86rem;
+  color: var(--color-text-main);
+  line-height: 1.65;
+  margin-bottom: 6px;
+  padding-left: 14px;
+  position: relative;
+}
+
+.exclusion-card li::before {
+  content: '•';
+  position: absolute;
+  left: 0;
+  color: var(--color-gold);
+  font-weight: 800;
+}
+
+.dot-opt { background-color: #7f8c8d; }
+.popup-tag.optional { background: #ebedef; color: #4d5656; }
+
+@media (max-width: 992px) {
+  .reach-zones { grid-template-columns: repeat(2, 1fr); }
+  .spot-eval-grid { grid-template-columns: repeat(2, 1fr); }
+}
+
+@media (max-width: 768px) {
+  .reach-diagram-box { padding: 14px; }
+  .reach-zones { grid-template-columns: 1fr; gap: 10px; }
+  .spot-eval-grid { grid-template-columns: 1fr; gap: 12px; }
+  .exclusion-guide-box { padding: 16px 14px; }
+  .exclusion-card { padding: 14px; }
+}

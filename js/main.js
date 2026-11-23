@@ -1,15 +1,14 @@
 /**
  * 出雲・松江 家族旅行プランニング メインスクリプト
- * ドーミーイン出雲連泊・プラン連動マップ・地図ジャンプ・進捗バー・ScrollSpy
+ * ドーミーイン出雲連泊・希望8スポット完全反映・見送り候補距離マップ・進捗バー・ScrollSpy
  */
 
 document.addEventListener('DOMContentLoaded', () => {
-  // 1. Lucide Icons 初期化
   if (window.lucide) {
     lucide.createIcons();
   }
 
-  // 2. モバイルメニュー トグル
+  // モバイルメニュー
   const mobileMenuBtn = document.getElementById('mobileMenuBtn');
   const mobileDrawer = document.getElementById('mobileDrawer');
   const drawerLinks = document.querySelectorAll('.drawer-link');
@@ -28,35 +27,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // 3. 印刷ボタン（ヘッダー＆モバイルドロワー）
+  // 印刷ボタン
   const printBtn = document.getElementById('printBtn');
   const drawerPrintBtn = document.getElementById('drawerPrintBtn');
   if (printBtn) printBtn.addEventListener('click', () => window.print());
   if (drawerPrintBtn) drawerPrintBtn.addEventListener('click', () => window.print());
 
-  // 4. URL共有モーダル
   initShareModal();
-
-  // 5. プラン切り替え（レンタカーあり vs 公共交通）
   initPlanSwitcher();
-
-  // 6. 旅程表タブ切り替え
   initItineraryTabs();
-
-  // 7. Leaflet 観光マップ（プラン連動＆スポットジャンプ対応）
   initMap();
-
-  // 8. 持ち物チェックリスト（LocalStorage＆進捗バー）
   initChecklist();
-
-  // 9. ScrollSpy & トップへ戻るボタン
   initScrollEnhancements();
 });
 
 /* ==========================================================================
-   プラン切り替え（レンタカーあり vs なし）一元管理
+   プラン切り替え（レンタカーあり vs なし）
    ========================================================================== */
-let currentPlan = 'car'; // 'car' | 'transit'
+let currentPlan = 'car';
 
 function switchPlan(plan) {
   if (currentPlan === plan) return;
@@ -95,26 +83,21 @@ function switchPlan(plan) {
   if (isCar) {
     if (mainHeading) mainHeading.textContent = '【プランA：レンタカー利用】3日間の旅程表';
     if (subHeading) subHeading.textContent = 'CAR RENTAL ITINERARY';
-    if (leadDesc) leadDesc.textContent = '初日は空港から出雲市駅前へ。2日目に出雲大社・稲佐の浜・松江城・宍道湖夕日を車で効率よく巡ります。';
-    if (tabSub1) tabSub1.textContent = '15:55着 ➔ 車で宿へ';
-    if (tabSub2) tabSub2.textContent = '稲佐の浜・大社・松江';
-    if (tabSub3) tabSub3.textContent = '朝観光 ➔ 12:05便';
+    if (leadDesc) leadDesc.textContent = '希望8スポットのうち6箇所（出西・万九千・木綿街道・歴博・松江城・亀田山喫茶室）＋出雲大社を美しく繋ぐ黄金ルートです。';
+    if (tabSub1) tabSub1.textContent = '空港➔出西village➔宿';
+    if (tabSub2) tabSub2.textContent = '大社・歴博・木綿・松江城';
+    if (tabSub3) tabSub3.textContent = '万九千・出西パン➔空港';
   } else {
     if (mainHeading) mainHeading.textContent = '【プランB：レンタカーなし（公共交通）】3日間の旅程表';
     if (subHeading) subHeading.textContent = 'PUBLIC TRANSIT & TRAIN ITINERARY';
-    if (leadDesc) leadDesc.textContent = '駅前の立地を最大限に活用。一畑電車（ばたでん）や特急やくもを乗り継ぎ、全員がお酒を楽しめる鉄道旅情コースです。';
-    if (tabSub1) tabSub1.textContent = '15:55着 ➔ バスで宿へ';
-    if (tabSub2) tabSub2.textContent = '一畑電車・松江・特急';
-    if (tabSub3) tabSub3.textContent = '朝食満喫 ➔ 12:05便';
+    if (leadDesc) leadDesc.textContent = '一畑電車と特急やくもを活用し、希望スポット4箇所（歴博・木綿街道・松江城・亀田山喫茶室）＋出雲大社を満喫する鉄道旅情コースです。';
+    if (tabSub1) tabSub1.textContent = '空港➔バスで宿直行';
+    if (tabSub2) tabSub2.textContent = '電車・木綿・松江城・特急';
+    if (tabSub3) tabSub3.textContent = '朝食満喫➔空港バス';
   }
 
-  // 現在アクティブな日程タブを維持したまま新プランのパネルを表示
   syncActiveDayPanel();
-
-  // マップもプランに合わせて更新
-  if (window.updateMapPlan) {
-    window.updateMapPlan(plan);
-  }
+  if (window.updateMapPlan) window.updateMapPlan(plan);
 }
 
 function initPlanSwitcher() {
@@ -158,12 +141,8 @@ function syncActiveDayPanel() {
   }
 }
 
-/* ==========================================================================
-   旅程表 日付タブ切り替え
-   ========================================================================== */
 function initItineraryTabs() {
   const tabBtns = document.querySelectorAll('.itinerary-tabs .tab-btn');
-
   tabBtns.forEach(btn => {
     btn.addEventListener('click', () => {
       tabBtns.forEach(b => b.classList.remove('active'));
@@ -194,10 +173,7 @@ function initShareModal() {
     if (input) input.value = window.PUBLIC_URL || window.location.href;
     modal.classList.add('active');
   };
-
-  const closeModal = () => {
-    modal.classList.remove('active');
-  };
+  const closeModal = () => modal.classList.remove('active');
 
   if (shareBtn) shareBtn.addEventListener('click', openModal);
   if (mobileShareBtn) mobileShareBtn.addEventListener('click', openModal);
@@ -208,9 +184,7 @@ function initShareModal() {
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && modal.classList.contains('active')) {
-      closeModal();
-    }
+    if (e.key === 'Escape' && modal.classList.contains('active')) closeModal();
   });
 
   if (copyBtn) {
@@ -231,21 +205,19 @@ function initShareModal() {
   function showCopied() {
     if (!feedback) return;
     feedback.style.display = 'block';
-    setTimeout(() => {
-      feedback.style.display = 'none';
-    }, 3000);
+    setTimeout(() => { feedback.style.display = 'none'; }, 3000);
   }
 }
 
 /* ==========================================================================
-   Leaflet マップ初期化（プランA/B連動 ＆ スポットジャンプ対応）
+   Leaflet マップ初期化（希望8スポット＋見送り候補距離確認対応）
    ========================================================================== */
 function initMap() {
   const mapElement = document.getElementById('izumoMap');
   if (!mapElement || typeof L === 'undefined') return;
 
-  const centerCoord = [35.425, 132.85];
-  const map = L.map('izumoMap', { scrollWheelZoom: false }).setView(centerCoord, 11);
+  const centerCoord = [35.43, 132.88];
+  const map = L.map('izumoMap', { scrollWheelZoom: false }).setView(centerCoord, 10);
 
   L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 18,
@@ -255,13 +227,13 @@ function initMap() {
   const spots = [
     {
       id: 'dormy-hotel',
-      name: '天然温泉 八雲の湯 ドーミーイン出雲（連泊）',
+      name: '天然温泉 八雲の湯 ドーミーイン出雲（2連泊）',
       lat: 35.3606,
       lng: 132.7561,
       day: 'hotel',
       plans: ['car', 'transit'],
-      category: '★宿泊拠点（2連泊）',
-      desc: 'JR出雲市駅南口徒歩1分。最上階天然温泉＆サウナ、夜鳴きそば無料、朝食バイキング。',
+      category: '★宿泊拠点（JR出雲市駅徒歩1分）',
+      desc: '最上階天然温泉「八雲の湯」＆夜鳴きそば無料。2連泊で荷造り不要！',
       image: 'https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=500&q=80'
     },
     {
@@ -272,19 +244,19 @@ function initMap() {
       day: 'day1',
       plans: ['car', 'transit'],
       category: '発着拠点（JAL283/280）',
-      desc: '11/27 15:55着、11/29 12:05発。レンタカー受取・直行バス発着。',
+      desc: '11/27 15:55着、11/29 12:05発。出西・万九千神社まで車10〜15分！',
       image: 'https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=500&q=80'
     },
     {
-      id: 'inasa',
-      name: '稲佐の浜（弁天島）',
-      lat: 35.3996,
-      lng: 132.6718,
-      day: 'day2',
+      id: 'shussai',
+      name: '出西くらしのvillage（出西窯・パン）',
+      lat: 35.3663,
+      lng: 132.8334,
+      day: 'day1',
       plans: ['car'],
-      category: '🚗 車限定：お砂取り',
-      desc: '国譲り神話の浜。砂をいただき出雲大社の素鵞社で御砂と交換します。無料駐車場完備。',
-      image: 'https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=500&q=80'
+      category: '🚗 希望スポット（1日目夕＆3日目朝）',
+      desc: '出西窯・Bshopは18時迄、ル コションドール出西（パン＆珈琲）は朝9:30〜！',
+      image: 'https://images.unsplash.com/photo-1578749556568-bc2c40e68b61?auto=format&fit=crop&w=500&q=80'
     },
     {
       id: 'taisha',
@@ -294,29 +266,40 @@ function initMap() {
       day: 'day2',
       plans: ['car', 'transit'],
       category: '2日目：縁結び正式参拝',
-      desc: '二礼四拍手一礼で参拝。神楽殿の5.2トン巨大注連縄は必見の迫力！',
+      desc: '二礼四拍手一礼で参拝。神楽殿の5.2トン巨大注連縄は必見！',
       image: 'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=500&q=80'
     },
     {
-      id: 'taisha-station',
-      name: '一畑電車 出雲大社前駅',
-      lat: 35.3965,
-      lng: 132.6862,
+      id: 'rekihaku',
+      name: '島根県立古代出雲歴史博物館',
+      lat: 35.3986,
+      lng: 132.6908,
       day: 'day2',
-      plans: ['transit'],
-      category: '🚌 公共交通：有形文化財駅舎',
-      desc: 'プランBの玄関口。昭和レトロな美しいステンドグラス洋風駅舎。',
+      plans: ['car', 'transit'],
+      category: '★希望スポット（2026年10月リニューアル）',
+      desc: '出雲大社の東隣（徒歩5分）。新設の神話シアターや国宝銅剣358本、古代本殿模型が圧巻。',
+      image: 'https://images.unsplash.com/photo-1518709268805-4e9042af9f23?auto=format&fit=crop&w=500&q=80'
+    },
+    {
+      id: 'momen',
+      name: '木綿街道（平田）',
+      lat: 35.4307,
+      lng: 132.8206,
+      day: 'day2',
+      plans: ['car', 'transit'],
+      category: '★希望スポット（江戸の町並み）',
+      desc: '醤油ソフト・生姜糖の食べ歩き。一畑電車「雲州平田駅」徒歩10分で電車でもOK！',
       image: 'https://images.unsplash.com/photo-1528164344705-475426879c0d?auto=format&fit=crop&w=500&q=80'
     },
     {
       id: 'matsue-castle',
-      name: '国宝 松江城 ＆ 堀川めぐり',
+      name: '国宝 松江城 ＆ 亀田山喫茶室（興雲閣1F）',
       lat: 35.4751,
       lng: 133.0506,
       day: 'day2',
       plans: ['car', 'transit'],
-      category: '2日目：国宝天守＆こたつ船',
-      desc: '山陰唯一の現存国宝天守。11月下旬はお堀をめぐるぽかぽか「こたつ船」が人気！',
+      category: '★希望スポット×2（天守＆洋館カフェ）',
+      desc: '亀田山喫茶室は松江城敷地内の明治洋館「興雲閣」1階（土日L.O. 16:30）。',
       image: 'https://images.unsplash.com/photo-1578637387939-43c525550085?auto=format&fit=crop&w=500&q=80'
     },
     {
@@ -326,31 +309,42 @@ function initMap() {
       lng: 133.0519,
       day: 'day2',
       plans: ['car'],
-      category: '🚗 車限定：日本の夕陽百選PA',
-      desc: '国道9号沿い。車を横付けして嫁ヶ島と茜色の空を眺める特等席。',
+      category: '🚗 車限定：日本の夕陽百選',
+      desc: '嫁ヶ島と茜色の夕日を車からすぐ眺められる絶景スポット。',
       image: 'https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?auto=format&fit=crop&w=500&q=80'
     },
     {
-      id: 'art-museum',
-      name: '島根県立美術館（宍道湖うさぎ）',
-      lat: 35.4608,
-      lng: 133.0503,
-      day: 'day2',
-      plans: ['transit'],
-      category: '🚌 公共交通：夕日スポット',
-      desc: 'レイクラインバスで直行。湖畔芝生で「宍道湖うさぎ」を撫でて夕日鑑賞。',
-      image: 'https://images.unsplash.com/photo-1518998053901-5348d3961a04?auto=format&fit=crop&w=500&q=80'
-    },
-    {
-      id: 'winery',
-      name: '島根ワイナリー',
-      lat: 35.3923,
-      lng: 132.7093,
+      id: 'mankusen',
+      name: '万九千神社（まんくせんじんじゃ）',
+      lat: 35.3941,
+      lng: 132.8511,
       day: 'day3',
       plans: ['car'],
-      category: '🚗 車限定：3日目朝プチ観光',
-      desc: 'ワイン・ぶどうジュース試飲とお土産選び。空港まで車25分。',
-      image: 'https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=500&q=80'
+      category: '🚗 希望スポット（3日目朝参拝）',
+      desc: '神在月の最後に神々が旅立つ神社。出雲空港から車でわずか10分！',
+      image: 'https://images.unsplash.com/photo-1509316975850-ff9c5deb0cd9?auto=format&fit=crop&w=500&q=80'
+    },
+    {
+      id: 'karakama',
+      name: '韓竈神社（差替オプション候補）',
+      lat: 35.4488,
+      lng: 132.7429,
+      day: 'optional',
+      plans: ['car', 'transit'],
+      category: '△ 差替候補（レンタカー・晴天時）',
+      desc: '山奥の秘境。急な石段300段＆幅45cmの岩戸くぐり。木綿街道と入れ替えなら可能。',
+      image: 'https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=500&q=80'
+    },
+    {
+      id: 'mizuki',
+      name: '水木しげるロード（鳥取県境港市・今回は見送り推奨）',
+      lat: 35.5453,
+      lng: 133.2248,
+      day: 'optional',
+      plans: ['car', 'transit'],
+      category: '× 優先度最低（遠距離のため見送り）',
+      desc: '出雲市駅から車で往復約3時間・電車往復約5時間。次回「鳥取・米子旅」のメインに！',
+      image: 'https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=500&q=80'
     }
   ];
 
@@ -359,6 +353,7 @@ function initMap() {
     if (day === 'hotel') color = '#f39c12';
     else if (day === 'day2') color = '#1e3a5f';
     else if (day === 'day3') color = '#27ae60';
+    else if (day === 'optional') color = '#7f8c8d';
 
     const svgHtml = `
       <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="34" height="34">
@@ -400,17 +395,17 @@ function initMap() {
     markerMap[spot.id] = marker;
   });
 
-  // プランA（車）とプランB（公共交通）別のルートライン
+  // プランA（車）とプランB（公共交通）のルートライン
   const routes = {
     car: {
-      day1: L.polyline([[35.4136, 132.8894], [35.3606, 132.7561]], { color: '#c43d27', weight: 3, dashArray: '6, 6', opacity: 0.8 }),
-      day2: L.polyline([[35.3606, 132.7561], [35.3996, 132.6718], [35.4014, 132.6855], [35.4751, 133.0506], [35.4526, 133.0519], [35.3606, 132.7561]], { color: '#1e3a5f', weight: 3, dashArray: '6, 6', opacity: 0.8 }),
-      day3: L.polyline([[35.3606, 132.7561], [35.3923, 132.7093], [35.4136, 132.8894]], { color: '#27ae60', weight: 3, dashArray: '6, 6', opacity: 0.8 })
+      day1: L.polyline([[35.4136, 132.8894], [35.3663, 132.8334], [35.3606, 132.7561]], { color: '#c43d27', weight: 3, dashArray: '6, 6', opacity: 0.85 }),
+      day2: L.polyline([[35.3606, 132.7561], [35.4014, 132.6855], [35.3986, 132.6908], [35.4307, 132.8206], [35.4751, 133.0506], [35.4526, 133.0519], [35.3606, 132.7561]], { color: '#1e3a5f', weight: 3, dashArray: '6, 6', opacity: 0.85 }),
+      day3: L.polyline([[35.3606, 132.7561], [35.3941, 132.8511], [35.3663, 132.8334], [35.4136, 132.8894]], { color: '#27ae60', weight: 3, dashArray: '6, 6', opacity: 0.85 })
     },
     transit: {
-      day1: L.polyline([[35.4136, 132.8894], [35.3606, 132.7561]], { color: '#c43d27', weight: 3, dashArray: '4, 8', opacity: 0.8 }),
-      day2: L.polyline([[35.3606, 132.7561], [35.3965, 132.6862], [35.4014, 132.6855], [35.4751, 133.0506], [35.4608, 133.0503], [35.3606, 132.7561]], { color: '#1e3a5f', weight: 3, dashArray: '4, 8', opacity: 0.8 }),
-      day3: L.polyline([[35.3606, 132.7561], [35.4136, 132.8894]], { color: '#27ae60', weight: 3, dashArray: '4, 8', opacity: 0.8 })
+      day1: L.polyline([[35.4136, 132.8894], [35.3606, 132.7561]], { color: '#c43d27', weight: 3, dashArray: '4, 8', opacity: 0.85 }),
+      day2: L.polyline([[35.3606, 132.7561], [35.4014, 132.6855], [35.3986, 132.6908], [35.4307, 132.8206], [35.4751, 133.0506], [35.3606, 132.7561]], { color: '#1e3a5f', weight: 3, dashArray: '4, 8', opacity: 0.85 }),
+      day3: L.polyline([[35.3606, 132.7561], [35.4136, 132.8894]], { color: '#27ae60', weight: 3, dashArray: '4, 8', opacity: 0.85 })
     }
   };
 
@@ -419,11 +414,18 @@ function initMap() {
   function renderMapLayers(fitToBounds = false) {
     const bounds = [];
 
-    // マーカー表示制御（選択中のプラン ＆ 日程フィルターに一致するもの）
     markerObjects.forEach(marker => {
       const spot = marker.spotData;
       const inPlan = spot.plans.includes(currentPlan);
-      const inFilter = (activeFilter === 'all') || (spot.day === activeFilter) || (spot.day === 'hotel');
+      let inFilter = false;
+
+      if (activeFilter === 'all') {
+        inFilter = (spot.day !== 'optional');
+      } else if (activeFilter === 'optional') {
+        inFilter = true;
+      } else {
+        inFilter = (spot.day === activeFilter) || (spot.day === 'hotel');
+      }
 
       if (inPlan && inFilter) {
         if (!map.hasLayer(marker)) map.addLayer(marker);
@@ -433,11 +435,10 @@ function initMap() {
       }
     });
 
-    // 全ルートラインを一旦クリアして、該当プランの該当ラインのみ表示
     ['car', 'transit'].forEach(planKey => {
       ['day1', 'day2', 'day3'].forEach(dayKey => {
         const line = routes[planKey][dayKey];
-        const shouldShow = (planKey === currentPlan) && (activeFilter === 'all' || activeFilter === dayKey);
+        const shouldShow = (planKey === currentPlan) && (activeFilter === 'all' || activeFilter === 'optional' || activeFilter === dayKey);
         if (shouldShow) {
           if (!map.hasLayer(line)) map.addLayer(line);
         } else {
@@ -446,12 +447,11 @@ function initMap() {
       });
     });
 
-    // 説明文更新
     const mapDesc = document.getElementById('map-plan-desc');
     if (mapDesc) {
       mapDesc.innerHTML = currentPlan === 'car'
-        ? '現在表示中：<strong>🚗 プランA（レンタカーあり）</strong>のルート。ピンをタップすると写真と詳細が開きます。'
-        : '現在表示中：<strong>🚌 プランB（レンタカーなし・公共交通）</strong>のルート。ピンをタップすると写真と詳細が開きます。';
+        ? '現在表示中：<strong>🚗 プランA（レンタカーあり）</strong>のルート。「見送り/差替候補も比較」を押すと水木しげるロードの遠さも一目で分かります。'
+        : '現在表示中：<strong>🚌 プランB（レンタカーなし・公共交通）</strong>のルート。「見送り/差替候補も比較」を押すと距離感が一目で分かります。';
     }
 
     if (fitToBounds && bounds.length > 0) {
@@ -459,10 +459,8 @@ function initMap() {
     }
   }
 
-  // 初回描画
   renderMapLayers(false);
 
-  // フィルターボタン
   const filterBtns = document.querySelectorAll('.map-btn');
   filterBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -473,13 +471,12 @@ function initMap() {
     });
   });
 
-  // プラン切り替え時のコールバック
   window.updateMapPlan = function() {
     renderMapLayers(false);
     map.invalidateSize();
   };
 
-  // スポットカードの「地図で見る」ボタン連携
+  // 「地図で見る」ジャンプボタン（見送り候補へのジャンプにも対応）
   const jumpBtns = document.querySelectorAll('.map-jump-btn');
   jumpBtns.forEach(btn => {
     btn.addEventListener('click', () => {
@@ -487,9 +484,9 @@ function initMap() {
       const marker = markerMap[spotId];
       if (!marker) return;
 
-      // フィルターを「全スポット」に戻して確実に表示させる
-      activeFilter = 'all';
-      filterBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-filter') === 'all'));
+      const isOptional = marker.spotData.day === 'optional';
+      activeFilter = isOptional ? 'optional' : 'all';
+      filterBtns.forEach(b => b.classList.toggle('active', b.getAttribute('data-filter') === activeFilter));
       renderMapLayers(false);
 
       const mapSection = document.getElementById('map-section');
@@ -498,7 +495,7 @@ function initMap() {
       }
 
       setTimeout(() => {
-        map.setView(marker.getLatLng(), 14, { animate: true });
+        map.setView(marker.getLatLng(), isOptional ? 10 : 13, { animate: true });
         marker.openPopup();
       }, 450);
     });
@@ -506,10 +503,10 @@ function initMap() {
 }
 
 /* ==========================================================================
-   持ち物チェックリスト（LocalStorage同期 ＆ 進捗プログレスバー）
+   持ち物チェックリスト（進捗プログレスバー付き）
    ========================================================================== */
 function initChecklist() {
-  const STORAGE_KEY = 'izumo_dormy_checklist_v3';
+  const STORAGE_KEY = 'izumo_dormy_checklist_v4';
   const checkboxes = document.querySelectorAll('#checklist input[type="checkbox"]');
   const resetBtn = document.getElementById('resetChecklistBtn');
   const saveStatus = document.getElementById('saveStatus');
@@ -564,9 +561,7 @@ function initChecklist() {
     if (!saveStatus) return;
     saveStatus.textContent = '✓ 自動保存しました';
     saveStatus.style.opacity = '1';
-    setTimeout(() => {
-      saveStatus.style.opacity = '0';
-    }, 2000);
+    setTimeout(() => { saveStatus.style.opacity = '0'; }, 2000);
   }
 
   if (resetBtn) {
@@ -578,9 +573,7 @@ function initChecklist() {
         if (saveStatus) {
           saveStatus.textContent = 'リセットしました';
           saveStatus.style.opacity = '1';
-          setTimeout(() => {
-            saveStatus.style.opacity = '0';
-          }, 2000);
+          setTimeout(() => { saveStatus.style.opacity = '0'; }, 2000);
         }
       }
     });
@@ -588,7 +581,7 @@ function initChecklist() {
 }
 
 /* ==========================================================================
-   ScrollSpy（現在位置ハイライト）＆ トップへ戻るボタン
+   ScrollSpy ＆ トップへ戻るボタン
    ========================================================================== */
 function initScrollEnhancements() {
   const backToTopBtn = document.getElementById('backToTopBtn');
@@ -603,25 +596,17 @@ function initScrollEnhancements() {
 
   function onScroll() {
     const scrollY = window.scrollY;
+    if (backToTopBtn) backToTopBtn.classList.toggle('visible', scrollY > 400);
 
-    // トップへ戻るボタン表示制御
-    if (backToTopBtn) {
-      backToTopBtn.classList.toggle('visible', scrollY > 400);
-    }
-
-    // 現在表示中のセクションを判定
     let currentSectionId = '';
     sections.forEach(sec => {
       const top = sec.offsetTop - 130;
       const height = sec.offsetHeight;
-      if (scrollY >= top && scrollY < top + height) {
-        currentSectionId = sec.id;
-      }
+      if (scrollY >= top && scrollY < top + height) currentSectionId = sec.id;
     });
 
     navLinks.forEach(link => {
-      const target = link.getAttribute('data-section');
-      link.classList.toggle('active', target === currentSectionId);
+      link.classList.toggle('active', link.getAttribute('data-section') === currentSectionId);
     });
   }
 
