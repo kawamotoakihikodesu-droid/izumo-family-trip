@@ -1,0 +1,1287 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
+  <title>出雲・松江 家族の絆を深める二泊三日 旅のしおり｜ドーミーイン出雲連泊</title>
+  <meta name="description" content="2026年11月27日〜29日 JAL羽田発着・ドーミーイン出雲連泊。レンタカーあり・なしの違いがひと目でわかる家族旅行プラン。">
+  <meta name="theme-color" content="#12233a">
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Serif+JP:wght@400;600;700&family=Zen+Kaku+Gothic+New:wght@400;500;700&display=swap" rel="stylesheet">
+  <!-- Leaflet CSS -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <!-- Custom CSS -->
+  <link rel="stylesheet" href="css/style.css?v=20261123b">
+  <script>window.PUBLIC_URL = "https://kawamotoakihikodesu-droid.github.io/izumo-family-trip/";</script>
+  <!-- Lucide Icons -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+</head>
+<body>
+
+  <!-- ナビゲーションバー -->
+  <header class="navbar" id="navbar">
+    <div class="nav-container">
+      <a href="#hero" class="nav-logo">
+        <span class="logo-kanji">出雲旅</span>
+        <span class="logo-sub">ドーミーイン連泊 2泊3日</span>
+      </a>
+      <nav class="nav-links" aria-label="メインナビゲーション">
+        <a href="#diff-comparison" data-section="diff-comparison">あり/なし比較</a>
+        <a href="#itinerary" data-section="itinerary">3日間の旅程</a>
+        <a href="#map-section" data-section="map-section">観光マップ</a>
+        <a href="#dormy-section" data-section="dormy-section">お宿の魅力</a>
+        <a href="#checklist" data-section="checklist">持ち物</a>
+      </nav>
+      <div class="nav-actions">
+        <button id="shareUrlBtn" class="btn-share" title="共有URLをコピー">
+          <i data-lucide="share-2"></i>
+          <span>共有</span>
+        </button>
+        <button id="printBtn" class="btn-print" title="旅のしおりを印刷・PDF保存">
+          <i data-lucide="printer"></i>
+          <span>印刷</span>
+        </button>
+        <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="メニューを開く" aria-expanded="false">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <!-- モバイルドロワーメニュー -->
+    <div class="mobile-drawer" id="mobileDrawer">
+      <a href="#flight-card" class="drawer-link"><i data-lucide="plane"></i> フライト・宿泊情報</a>
+      <a href="#diff-comparison" class="drawer-link"><i data-lucide="git-compare"></i> レンタカーあり/なし違い一覧</a>
+      <a href="#plan-selector" class="drawer-link"><i data-lucide="sliders"></i> プラン切り替え</a>
+      <a href="#itinerary" class="drawer-link"><i data-lucide="calendar"></i> 3日間の旅程表</a>
+      <a href="#map-section" class="drawer-link"><i data-lucide="map-pin"></i> 観光マップ</a>
+      <a href="#dormy-section" class="drawer-link"><i data-lucide="hotel"></i> ドーミーイン出雲の魅力</a>
+      <a href="#checklist" class="drawer-link"><i data-lucide="check-square"></i> 持ち物チェック</a>
+      <button id="drawerPrintBtn" class="drawer-link drawer-btn"><i data-lucide="printer"></i> 旅のしおりを印刷・PDF保存</button>
+    </div>
+  </header>
+
+  <!-- ヒーローセクション -->
+  <section class="hero-section" id="hero">
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-tag">2026年11月27日(金) 〜 11月29日(日) 開催</div>
+      <h1 class="hero-title">
+        神話の国・出雲と<br>水の都・松江を巡る<br>
+        <span class="gold-gradient">二泊三日 家族旅プラン</span>
+      </h1>
+      <p class="hero-desc">
+        天然温泉 八雲の湯「ドーミーイン出雲」2連泊で荷物のパッキング不要！<br>
+        「レンタカー利用」と「公共交通（一畑電車・空港バス）」の<strong>具体的な違いとメリット</strong>を徹底比較しました。
+      </p>
+
+      <!-- フライト＆宿泊情報バナー -->
+      <div class="hero-flight-banner" id="flight-card">
+        <div class="flight-pill">
+          <div class="flight-pill-header">
+            <span class="flight-type-badge outbound">往路</span>
+            <span class="flight-date">11/27 (金)</span>
+            <span class="flight-name">JAL 283便</span>
+          </div>
+          <div class="flight-route">羽田 14:30 ➔ 出雲 15:55 着</div>
+        </div>
+        <div class="flight-arrow"><i data-lucide="arrow-right"></i></div>
+        <div class="flight-pill">
+          <div class="flight-pill-header">
+            <span class="flight-type-badge inbound">復路</span>
+            <span class="flight-date">11/29 (日)</span>
+            <span class="flight-name">JAL 280便</span>
+          </div>
+          <div class="flight-route">出雲 12:05 ➔ 羽田 13:20 着</div>
+        </div>
+        <div class="flight-pill hotel-pill">
+          <div class="flight-pill-header">
+            <span class="flight-type-badge hotel">宿泊地</span>
+            <span class="flight-name">天然温泉 八雲の湯 ドーミーイン出雲（2連泊）</span>
+          </div>
+          <div class="flight-route"><i data-lucide="map-pin"></i> JR出雲市駅南口 徒歩1分（駐車場完備）</div>
+        </div>
+      </div>
+
+      <div class="hero-cta-group">
+        <a href="#diff-comparison" class="btn btn-primary">
+          <i data-lucide="git-compare"></i> あり・なしの違いを比較
+        </a>
+        <a href="#itinerary" class="btn btn-glass">
+          <i data-lucide="compass"></i> 詳細旅程を見る
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- レンタカー有り無し 違い徹底比較セクション -->
+  <section class="section-container" id="diff-comparison">
+    <div class="section-header text-center">
+      <span class="sub-heading">DIFFERENCE & HIGHLIGHTS</span>
+      <h2 class="section-title">レンタカー「有り」と「無し」<br class="br-sp">どこがどう違う？</h2>
+      <div class="title-divider"></div>
+      <p class="section-lead">出雲市駅前「ドーミーイン出雲」連泊での、具体的な違いをわかりやすく比較しました。</p>
+    </div>
+
+    <!-- 違い比較グリッド -->
+    <div class="diff-cards-grid">
+      <div class="diff-card">
+        <div class="diff-card-header">
+          <div class="diff-card-icon"><i data-lucide="map-pin"></i></div>
+          <h4>行けるスポットの違い</h4>
+        </div>
+        <div class="diff-compare-item">
+          <span class="diff-tag car">🚗 あり</span>
+          <p><strong>「稲佐の浜（お砂取り）」</strong>や<strong>「宍道湖夕日PA」</strong>、最終日朝の<strong>「島根ワイナリー/歴史博物館」</strong>まで車で余すところなく網羅！</p>
+        </div>
+        <div class="diff-compare-item">
+          <span class="diff-tag transit">🚌 なし</span>
+          <p>出雲大社と松江城をしっかり巡りつつ、レトロな<strong>「一畑電車出雲大社前駅（有形文化財）」</strong>や<strong>「特急やくも」</strong>の鉄道旅情を満喫！</p>
+        </div>
+      </div>
+
+      <div class="diff-card">
+        <div class="diff-card-header">
+          <div class="diff-card-icon"><i data-lucide="clock"></i></div>
+          <h4>時間の自由度・移動</h4>
+        </div>
+        <div class="diff-compare-item">
+          <span class="diff-tag car">🚗 あり</span>
+          <p>電車の時刻表を気にせず、子どもの機嫌や天候に合わせて出発・滞在時間を柔軟に調整。急な休憩やお昼寝も車内で快適。</p>
+        </div>
+        <div class="diff-compare-item">
+          <span class="diff-tag transit">🚌 なし</span>
+          <p>電車の時刻に合わせる必要がありますが、駅徒歩1分のホテルなので移動の無駄がなく、渋滞の心配も一切ゼロ。</p>
+        </div>
+      </div>
+
+      <div class="diff-card">
+        <div class="diff-card-header">
+          <div class="diff-card-icon"><i data-lucide="wine"></i></div>
+          <h4>お食事・地酒とお酒</h4>
+        </div>
+        <div class="diff-compare-item">
+          <span class="diff-tag car">🚗 あり</span>
+          <p>運転手の方は夕食時（ホテル帰着後）までお酒が飲めません。昼食時はノンアルコールで、夜に駅前で乾杯となります。</p>
+        </div>
+        <div class="diff-compare-item">
+          <span class="diff-tag transit">🚌 なし</span>
+          <p><strong>全員が運転から解放！</strong>昼食の出雲そばでも夕食でも、島根の銘酒（李白・出雲富士）を気兼ねなく楽しめます。</p>
+        </div>
+      </div>
+
+      <div class="diff-card">
+        <div class="diff-card-header">
+          <div class="diff-card-icon"><i data-lucide="coins"></i></div>
+          <h4>家族4人の交通費目安</h4>
+        </div>
+        <div class="diff-compare-item">
+          <span class="diff-tag car">🚗 あり</span>
+          <p><strong>約 25,000円 〜 32,000円</strong><br><small>（48時間レンタカー＋燃料＋ホテル駐車場代）</small></p>
+        </div>
+        <div class="diff-compare-item">
+          <span class="diff-tag transit">🚌 なし</span>
+          <p><strong>約 11,000円 〜 15,000円</strong><br><small>（空港バス往復＋一畑電車＋松江バス＋特急やくも等）</small></p>
+        </div>
+      </div>
+    </div>
+
+    <!-- 違い総括：スマホで見やすいカードビュー ＆ PCテーブル -->
+    <div class="diff-table-box">
+      <h3 class="table-title"><i data-lucide="calendar-check"></i> 日程別・ありなし相違点チェック</h3>
+      
+      <!-- スマホ用カードビュー -->
+      <div class="mobile-diff-accordion">
+        <div class="mobile-diff-card">
+          <div class="mobile-diff-header">
+            <span class="diff-day-badge">1日目：11/27(金)</span>
+            <span class="diff-flight-tag">15:55出雲着</span>
+          </div>
+          <div class="mobile-diff-body">
+            <div class="m-diff-item car-side">
+              <div class="m-diff-label">🚗 レンタカーあり</div>
+              <p>空港から車で約25分でホテルへ直行。荷物を置いてすぐ出雲市駅周辺の海鮮居酒屋へ。</p>
+            </div>
+            <div class="m-diff-item transit-side">
+              <div class="m-diff-label">🚌 レンタカーなし</div>
+              <p>空港直行バス（16:25発）で出雲市駅へ（30分・720円）。ホテルは駅南口徒歩1分なので即チェックイン！</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mobile-diff-card">
+          <div class="mobile-diff-header">
+            <span class="diff-day-badge">2日目：11/28(土)</span>
+            <span class="diff-flight-tag">終日観光ハイライト</span>
+          </div>
+          <div class="mobile-diff-body">
+            <div class="m-diff-item car-side">
+              <div class="m-diff-label">🚗 レンタカーあり</div>
+              <p>・<strong>稲佐の浜</strong>でお砂取り ➔ 出雲大社参拝<br>・車で松江城・堀川めぐり（こたつ船）<br>・車だから行ける<strong>「宍道湖夕日PA」</strong>でサンセット鑑賞</p>
+            </div>
+            <div class="m-diff-item transit-side">
+              <div class="m-diff-label">🚌 レンタカーなし</div>
+              <p>・駅前から<strong>一畑電車</strong>で出雲大社前へ<br>・大社参拝 ➔ 一畑電車で宍道湖を眺め松江へ<br>・松江城・堀川めぐり ➔ <strong>県立美術館</strong>で夕日<br>・松江駅から<strong>特急やくも</strong>で快適に出雲市駅へ！</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="mobile-diff-card">
+          <div class="mobile-diff-header">
+            <span class="diff-day-badge">3日目：11/29(日)</span>
+            <span class="diff-flight-tag">12:05出雲発</span>
+          </div>
+          <div class="mobile-diff-body">
+            <div class="m-diff-item car-side">
+              <div class="m-diff-label">🚗 レンタカーあり</div>
+              <p>08:30出発で<strong>「島根ワイナリー」</strong>や<strong>「古代出雲歴史博物館」</strong>を1時間見学 ➔ 10:35空港返却 ➔ 12:05便</p>
+            </div>
+            <div class="m-diff-item transit-side">
+              <div class="m-diff-label">🚌 レンタカーなし</div>
+              <p>ドーミーイン名物の豪華朝食（出雲そば・海の幸小鉢）を堪能 ➔ 10:00駅前から空港直行バス ➔ 12:05便</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PC用テーブル -->
+      <div class="table-responsive pc-only-table">
+        <table class="diff-matrix-table">
+          <thead>
+            <tr>
+              <th style="width: 16%;">日程</th>
+              <th style="width: 42%;">🚗 プランA：レンタカーあり</th>
+              <th style="width: 42%;">🚌 プランB：レンタカーなし（公共交通）</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>1日目<br>(11/27 金)</strong><br><small>15:55着</small></td>
+              <td>
+                <span class="badge-point point-car">車で直行</span><br>
+                空港から車で約25分でホテル直行。荷物を置いてすぐ出雲市駅周辺の海鮮居酒屋（のどぐろ・しまね和牛）へ。
+              </td>
+              <td>
+                <span class="badge-point point-transit">空港直行バス</span><br>
+                空港連絡バス（16:25発）で出雲市駅直行（約30分・720円）。ホテルは駅南口徒歩1分なので即チェックイン！
+              </td>
+            </tr>
+            <tr>
+              <td><strong>2日目<br>(11/28 土)</strong><br><small>終日観光</small></td>
+              <td>
+                <span class="badge-point point-car">神話の浜＆絶景PAへ横付け</span><br>
+                ・<strong>稲佐の浜</strong>でお砂取り ➔ 出雲大社正式参拝<br>
+                ・車で松江城・堀川めぐり（こたつ船）<br>
+                ・車だから行ける<strong>「宍道湖夕日スポット（とるPA）」</strong>で茜色のサンセット鑑賞
+              </td>
+              <td>
+                <span class="badge-point point-transit">レトロ電車＆特急やくも旅</span><br>
+                ・ホテル目の前から<strong>一畑電車（ばたでん）</strong>で出雲大社へ<br>
+                ・出雲大社参拝 ➔ 一畑電車で宍道湖畔を走り松江へ<br>
+                ・松江城・堀川めぐり ➔ <strong>県立美術館芝生</strong>で夕日鑑賞<br>
+                ・松江駅から<strong>特急やくも</strong>で快適に出雲市駅へ帰還！
+              </td>
+            </tr>
+            <tr>
+              <td><strong>3日目<br>(11/29 日)</strong><br><small>12:05発</small></td>
+              <td>
+                <span class="badge-point point-car">朝のプチ観光が可能</span><br>
+                08:30出発で<strong>「島根ワイナリー」</strong>や<strong>「古代出雲歴史博物館」</strong>を1時間見学 ➔ 10:35空港返却 ➔ 12:05便
+              </td>
+              <td>
+                <span class="badge-point point-transit">ホテル朝食満喫＆駅前直行バス</span><br>
+                ドーミーイン名物の豪華朝食（出雲そば・海の幸小鉢）を堪能 ➔ 10:00駅前から空港直行バス ➔ 12:05便
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- プラン選択スイッチャー -->
+  <section class="section-container plan-switch-section" id="plan-selector">
+    <div class="section-header text-center">
+      <span class="sub-heading">SELECT YOUR PLAN</span>
+      <h2 class="section-title">旅程表を切り替えて詳細を確認</h2>
+      <div class="title-divider"></div>
+      <p class="section-lead">下のボタンをタップすると、旅程表と観光マップのルートが各プランに切り替わります。</p>
+    </div>
+
+    <div class="plan-toggle-container">
+      <button class="plan-toggle-card active" id="btnPlanCar" data-plan="car" aria-pressed="true">
+        <div class="plan-card-icon"><i data-lucide="car"></i></div>
+        <div class="plan-card-info">
+          <span class="plan-badge-best">観光スポット数重視</span>
+          <h3 class="plan-card-title">プランA：レンタカーあり</h3>
+          <p class="plan-card-desc">稲佐の浜や宍道湖夕日PA、3日目朝の歴史博物館までフルに巡れるドライブ満喫コース。</p>
+        </div>
+        <div class="plan-check-icon"><i data-lucide="check-circle-2"></i></div>
+      </button>
+
+      <button class="plan-toggle-card" id="btnPlanTrain" data-plan="transit" aria-pressed="false">
+        <div class="plan-card-icon transit"><i data-lucide="train"></i></div>
+        <div class="plan-card-info">
+          <span class="plan-badge-transit">運転ストレスゼロ・コスパ良好</span>
+          <h3 class="plan-card-title">プランB：レンタカーなし（公共交通）</h3>
+          <p class="plan-card-desc">駅前ドーミーインの立地を最大限に活かし、一畑電車や特急やくもを楽しむ情緒旅情コース。</p>
+        </div>
+        <div class="plan-check-icon"><i data-lucide="check-circle-2"></i></div>
+      </button>
+    </div>
+  </section>
+
+  <!-- 旅程スケジュール（3日間タブ） -->
+  <section class="section-container bg-subtle" id="itinerary">
+    <div class="section-header text-center">
+      <span class="sub-heading" id="itinerary-subheading">CAR RENTAL ITINERARY</span>
+      <h2 class="section-title" id="itinerary-mainheading">【プランA：レンタカー利用】3日間の旅程表</h2>
+      <div class="title-divider"></div>
+      <p class="section-lead" id="itinerary-leaddesc">初日は空港から出雲市駅前へ。2日目に出雲大社・稲佐の浜・松江城・宍道湖夕日を車で効率よく巡ります。</p>
+    </div>
+
+    <!-- スティッキー操作バー（閲覧中でもプランA/Bをワンタップ比較可能） -->
+    <div class="sticky-plan-bar" id="stickyPlanBar">
+      <div class="sticky-plan-pills" role="tablist" aria-label="プラン切り替え">
+        <button class="sticky-pill active" data-plan-switch="car">🚗 レンタカーあり</button>
+        <button class="sticky-pill" data-plan-switch="transit">🚌 レンタカーなし</button>
+      </div>
+    </div>
+
+    <!-- 横スクロール対応タブ -->
+    <div class="itinerary-tabs-scroll-wrap">
+      <div class="itinerary-tabs">
+        <button class="tab-btn active" data-day="day1">
+          <span class="tab-day">1日目（11/27 金）</span>
+          <span class="tab-sub" id="tab-sub-day1">15:55着 ➔ 車で宿へ</span>
+        </button>
+        <button class="tab-btn" data-day="day2">
+          <span class="tab-day">2日目（11/28 土）</span>
+          <span class="tab-sub" id="tab-sub-day2">稲佐の浜・大社・松江</span>
+        </button>
+        <button class="tab-btn" data-day="day3">
+          <span class="tab-day">3日目（11/29 日）</span>
+          <span class="tab-sub" id="tab-sub-day3">朝観光 ➔ 12:05便</span>
+        </button>
+        <button class="tab-btn" data-day="all">
+          <span class="tab-day">全日程一覧</span>
+          <span class="tab-sub">3日間ダイジェスト</span>
+        </button>
+      </div>
+    </div>
+
+    <!-- 旅程コンテナ：プランA（レンタカーあり） -->
+    <div class="itinerary-wrapper active" id="wrapper-car">
+
+      <!-- DAY 1 (Car) -->
+      <div class="day-panel active" id="car-panel-day1">
+        <div class="day-banner">
+          <div class="day-banner-content">
+            <span class="day-tag">1日目：11月27日(金) 夕方到着</span>
+            <h3>出雲到着！車で25分の「ドーミーイン出雲」へチェックイン</h3>
+            <p>15:55着のJAL283便後、レンタカーで出雲市駅南口のドーミーイン出雲へ。天然温泉「八雲の湯」で温まり、駅前の名店で日本海海鮮グルメを堪能。</p>
+          </div>
+          <div class="day-banner-route">
+            <i data-lucide="navigation"></i> 出雲空港 (15:55着) 🚗➔ ドーミーイン出雲 (17:05) ➔ 駅前夕食 ➔ 天然温泉＆夜鳴きそば
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">15:55</span><span class="time-dur">到着・受取</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80" alt="出雲空港" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><i data-lucide="plane"></i> JAL283便 到着</div>
+                <h4 class="spot-name">出雲縁結び空港 到着 ＆ レンタカー手続き</h4>
+                <p class="spot-desc">
+                  羽田発のJAL283便で出雲へ到着。手荷物受取後、空港到着ロビーのレンタカー受付へ。車を受け取り16:35頃に出雲市街へ向けて出発します。
+                </p>
+                <div class="family-tip">
+                  <i data-lucide="info"></i>
+                  <strong>ファミリーPoint:</strong> 空港から出雲市駅へは約25分の平坦なルート。夕方ラッシュも少なく快適に運転できます。
+                </div>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="airport"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=出雲縁結び空港" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="transit-indicator"><i data-lucide="car"></i> 国道9号経由 車で約25分（約15km）</div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">17:05</span><span class="time-dur">連泊宿</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card highlight-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80" alt="ドーミーイン出雲" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category highlight-badge"><i data-lucide="bed"></i> 宿泊拠点（2連泊）</div>
+                <h4 class="spot-name">天然温泉 八雲の湯 ドーミーイン出雲にチェックイン</h4>
+                <p class="spot-desc">
+                  JR出雲市駅南口すぐ目の前の好立地！提携駐車場に車を停めてチェックイン。2連泊なのでスーツケースを広げて荷物を整理でき、明日以降も身軽に行動できます。
+                </p>
+                <div class="family-tip">
+                  <i data-lucide="info"></i>
+                  <strong>ファミリーPoint:</strong> 最上階には自家源泉の天然温泉大浴場（内湯・露天風呂・サウナ）を完備。夕食前にひと風呂浴びてリフレッシュ！
+                </div>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="dormy-hotel"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=ドーミーイン出雲" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="transit-indicator"><i data-lucide="footprints"></i> 徒歩で駅前飲食店へ</div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">18:30</span><span class="time-dur">夕食</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80" alt="出雲駅前海鮮居酒屋" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><i data-lucide="utensils"></i> 駅前グルメ</div>
+                <h4 class="spot-name">出雲市駅周辺の郷土料理店にて夕食</h4>
+                <p class="spot-desc">
+                  ホテル周辺には日本海の海の幸を楽しめる海鮮居酒屋や郷土料理店（「和泉」「神門」など）が多数。車をホテルに置いているので、パパもママも安心して島根の地酒を味わえます。
+                </p>
+                <div class="family-tip">
+                  <i data-lucide="info"></i>
+                  <strong>ファミリーPoint:</strong> 21:30〜23:00はドーミーイン名物の無料「夜鳴きそば（あっさり醤油ラーメン）」サービスあり！子どもたちのお夜食に大人気です。
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 2 (Car) -->
+      <div class="day-panel" id="car-panel-day2">
+        <div class="day-banner">
+          <div class="day-banner-content">
+            <span class="day-tag">2日目：11月28日(土) 車でフル観光</span>
+            <h3>稲佐の浜・出雲大社から松江城、宍道湖夕日PAへドライブ！</h3>
+            <p>車だから行ける「稲佐の浜（お砂取り）」から出雲大社へ。午後は宍道湖北岸をドライブして松江城・堀川めぐり（こたつ船）、そして絶景の夕日PAへ横付け。</p>
+          </div>
+          <div class="day-banner-route">
+            <i data-lucide="navigation"></i> 宿 (08:45) 🚗➔ 稲佐の浜 ➔ 出雲大社 ➔ そば ➔ 松江城・堀川めぐり ➔ 宍道湖夕日PA ➔ 宿帰着
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">08:45</span><span class="time-dur">出発</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1507525428034-b723cf961d3e?auto=format&fit=crop&w=600&q=80" alt="稲佐の浜" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><span class="diff-badge-car">🚗 車限定スポット</span> <i data-lucide="waves"></i> 神話の浜</div>
+                <h4 class="spot-name">稲佐の浜（弁天島）＆「お砂取り」</h4>
+                <p class="spot-desc">
+                  ホテルから車で約20分。国譲り神話の浜に到着。弁天島の前で手を合わせ、きれいな砂をビニール袋に採取。出雲大社の素鵞社で御神砂と交換する重要なアイテムです。
+                </p>
+                <div class="family-tip">
+                  <i data-lucide="info"></i>
+                  <strong>相違点:</strong> 車なら浜の目の前の駐車場（無料）に停められるため、歩く距離が短く家族連れに最も楽なルートです。
+                </div>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="inasa"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=稲佐の浜" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="transit-indicator"><i data-lucide="car"></i> 車で約3分</div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">09:30</span><span class="time-dur">所要 120分</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card highlight-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=600&q=80" alt="出雲大社参拝" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category highlight-badge"><i data-lucide="landmark"></i> 旅のハイライト</div>
+                <h4 class="spot-name">出雲大社（いづもおおやしろ）正式参拝 ＆ 神楽殿大注連縄</h4>
+                <p class="spot-desc">
+                  二礼四拍手一礼で拝殿・御本殿へ。裏手の素鵞社（そがのやしろ）で稲佐の浜の砂を納め、清められた御砂をいただきます。神楽殿の5.2トン巨大注連縄の前で家族の記念撮影！
+                </p>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="taisha"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=出雲大社" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">11:45</span><span class="time-dur">ランチ</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=600&q=80" alt="出雲そば" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><i data-lucide="utensils"></i> ランチ</div>
+                <h4 class="spot-name">神門通りにて伝統「出雲割子そば」ランチ ＆ ぜんざい</h4>
+                <p class="spot-desc">
+                  名店「かねや」や「八雲」で丸い朱塗りの器に入った割子そば。食後は発祥の甘味「出雲ぜんざい」を食べ歩き。
+                </p>
+                <div class="card-actions">
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=出雲大社+神門通り+出雲そば" target="_blank" rel="noopener"><i data-lucide="external-link"></i> 周辺のそば店を探す</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="transit-indicator"><i data-lucide="car"></i> 国道431号（宍道湖北岸）をドライブ 車で約45分</div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">13:30</span><span class="time-dur">所要 120分</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card highlight-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="松江城と堀川めぐり" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category highlight-badge"><i data-lucide="ship"></i> 国宝天守＆遊覧船</div>
+                <h4 class="spot-name">国宝 松江城 登閣 ＆ ぐるっと松江 堀川めぐり（こたつ船）</h4>
+                <p class="spot-desc">
+                  山陰唯一の国宝天守を見学後、城を囲むお堀を巡る「堀川めぐり」へ。11月下旬はぽかぽかの「こたつ船」が運航！低い橋をくぐる際に屋根が下がる大人気体験です。
+                </p>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="matsue-castle"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=松江城" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="transit-indicator"><i data-lucide="car"></i> 車で約10分</div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">16:30</span><span class="time-dur">所要 45分</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?auto=format&fit=crop&w=600&q=80" alt="宍道湖夕日" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><span class="diff-badge-car">🚗 車限定スポット</span> <i data-lucide="sunset"></i> 日本の夕陽百選</div>
+                <h4 class="spot-name">宍道湖夕日スポット（とるPA）にてサンセット鑑賞</h4>
+                <p class="spot-desc">
+                  国道9号沿いにある夕日鑑賞専用のパーキングエリア。湖上に浮かぶ嫁ヶ島と茜色の空のグラデーションを特等席のテラスから眺められます。
+                </p>
+                <div class="family-tip">
+                  <i data-lucide="info"></i>
+                  <strong>相違点:</strong> 車でパーキングに直接横付けできるため、寒い11月の夕暮れ時でも車内ですぐ暖まることができます。
+                </div>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="sunset-spot"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=宍道湖夕日スポット+とるPA" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="transit-indicator"><i data-lucide="car"></i> 山陰道（無料区間）経由 車で約35分で出雲市駅へ帰還</div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">17:45</span><span class="time-dur">帰着</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1547496502-affa22d38842?auto=format&fit=crop&w=600&q=80" alt="ドーミーイン温泉" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><i data-lucide="bed"></i> 2泊目 宿帰着</div>
+                <h4 class="spot-name">ドーミーイン出雲へ帰着 ＆ 天然温泉でリラックス</h4>
+                <p class="spot-desc">
+                  ホテルに戻り、天然温泉「八雲の湯」のサウナや露天風呂でドライブの疲れを癒します。連泊なのでお部屋もそのままで安心。駅前の名店で夕食、夜は夜鳴きそばを！
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 3 (Car) -->
+      <div class="day-panel" id="car-panel-day3">
+        <div class="day-banner">
+          <div class="day-banner-content">
+            <span class="day-tag">3日目：11月29日(日) 朝観光から空港へ</span>
+            <h3>朝イチで島根ワイナリーまたは歴史博物館へ寄り道！</h3>
+            <p>12:05発のフライトに合わせて08:30に出発。空港への途上にある「島根ワイナリー」や「古代出雲歴史博物館」でプチ観光・お土産選びを楽しんでから空港へ。</p>
+          </div>
+          <div class="day-banner-route">
+            <i data-lucide="navigation"></i> 宿 (08:30) 🚗➔ ワイナリー/歴博 (08:50〜09:50) ➔ 出雲空港・レンタカー返却 (10:35) ➔ JAL280便 (12:05発)
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">08:30</span><span class="time-dur">出発</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1544025162-d76694265947?auto=format&fit=crop&w=600&q=80" alt="島根ワイナリー" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><span class="diff-badge-car">🚗 車限定立ち寄り</span> <i data-lucide="shopping-bag"></i> プチ観光＆お土産</div>
+                <h4 class="spot-name">島根ワイナリー（または古代出雲歴史博物館）</h4>
+                <p class="spot-desc">
+                  ホテルから車で約20分。南欧風の広大なワイナリーで、ワインや濃厚ぶどうジュースの無料試飲、島根の銘菓や特産品をお買い物。空港まで車で25分とアクセス抜群です。
+                </p>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="winery"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=島根ワイナリー" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="transit-indicator"><i data-lucide="car"></i> 車で約25分（ガソリン給油）</div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">10:35</span><span class="time-dur">返却</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80" alt="空港お土産" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><i data-lucide="plane-takeoff"></i> 空港・返却</div>
+                <h4 class="spot-name">出雲空港到着 ＆ レンタカー返却 ➔ 12:05便で羽田へ</h4>
+                <p class="spot-desc">
+                  レンタカー返却後、空港売店でお土産の最終チェック。JAL280便（12:05発）で羽田へ（13:20着）。
+                </p>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="airport"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=出雲縁結び空港" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- 旅程コンテナ：プランB（レンタカーなし・公共交通） -->
+    <div class="itinerary-wrapper" id="wrapper-transit" style="display: none;">
+
+      <!-- DAY 1 (Transit) -->
+      <div class="day-panel active" id="transit-panel-day1">
+        <div class="day-banner">
+          <div class="day-banner-content">
+            <span class="day-tag">1日目：11月27日(金) 空港直行バス</span>
+            <h3>空港直行バスで出雲市駅へ！駅南口徒歩1分で即チェックイン</h3>
+            <p>15:55着のJAL283便接続バスで出雲市駅へ（30分・720円）。バス停から徒歩1分のドーミーイン出雲へ。誰も運転疲れせず、夜は駅前で島根の地酒を満喫！</p>
+          </div>
+          <div class="day-banner-route">
+            <i data-lucide="navigation"></i> 空港 (15:55着) 🚌直行バス ➔ 出雲市駅 (16:55) ➔ ドーミーイン (徒歩1分) ➔ 駅前地酒夕食
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">15:55</span><span class="time-dur">到着</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80" alt="空港バス" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><span class="diff-badge-transit">🚌 直行バス</span> <i data-lucide="bus"></i> 空港連絡バス</div>
+                <h4 class="spot-name">出雲空港 到着 ➔ 出雲市駅行き連絡バス乗車</h4>
+                <p class="spot-desc">
+                  手荷物受取後、空港正面1番のりばから「JR出雲市駅行き」空港バス（16:25発）に乗車。運賃は大人720円（子ども半額）。飛行機の遅延にも接続するので安心です。
+                </p>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="airport"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.ichibata.co.jp/bus/rosen/airport.html" target="_blank" rel="noopener"><i data-lucide="external-link"></i> 連絡バス時刻表</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="transit-indicator"><i data-lucide="bus"></i> 出雲一畑交通 空港連絡バスで約30分（直行）</div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">16:55</span><span class="time-dur">駅前宿</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card highlight-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1582719478250-c89cae4dc85b?auto=format&fit=crop&w=600&q=80" alt="ドーミーイン出雲" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category highlight-badge"><i data-lucide="bed"></i> 宿泊拠点（2連泊）</div>
+                <h4 class="spot-name">JR出雲市駅 到着 ➔ ドーミーイン出雲（南口徒歩1分）</h4>
+                <p class="spot-desc">
+                  バスを降りて駅の連絡通路を渡れば、南口の目の前にドーミーイン出雲！移動の手間や階段がほとんどなく、小さなお子様連れやシニアも驚くほどスムーズです。
+                </p>
+                <div class="family-tip">
+                  <i data-lucide="info"></i>
+                  <strong>相違点:</strong> レンタカーの手続き・返却・駐車場探しのストレスが一切なく、駅前から歩いてすぐチェックインできる快適さは公共交通ならでは。
+                </div>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="dormy-hotel"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=ドーミーイン出雲" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="transit-indicator"><i data-lucide="footprints"></i> 徒歩で駅前飲食店へ</div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">18:30</span><span class="time-dur">夕食</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1534422298391-e4f8c172dddb?auto=format&fit=crop&w=600&q=80" alt="地酒と会席" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><span class="diff-badge-transit">🚌 全員飲酒OK</span> <i data-lucide="utensils"></i> 地酒グルメ</div>
+                <h4 class="spot-name">駅前居酒屋にて「のどぐろ」と島根地酒で乾杯！</h4>
+                <p class="spot-desc">
+                  運転の負担がないため、パパもママも最初から島根の銘酒（出雲富士・李白）を飲み比べ！ホテルに戻って天然温泉と無料の「夜鳴きそば」を楽しみます。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 2 (Transit) -->
+      <div class="day-panel" id="transit-panel-day2">
+        <div class="day-banner">
+          <div class="day-banner-content">
+            <span class="day-tag">2日目：11月28日(土) 一畑電車＆特急やくも</span>
+            <h3>レトロ電車で出雲大社へ、松江城・堀川めぐり、特急で帰還！</h3>
+            <p>ホテル目の前から一畑電車（ばたでん）で出雲大社へ。午後は宍道湖を眺める電車旅で松江へ移動し、堀川めぐり（こたつ船）と夕日。帰りは「特急やくも」で快適ワープ！</p>
+          </div>
+          <div class="day-banner-route">
+            <i data-lucide="navigation"></i> 宿 🚋➔ 出雲大社 ➔ そば ➔ 電車で松江へ ➔ 松江城・堀川めぐり ➔ 夕日 ➔ 特急やくも ➔ 宿
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">08:45</span><span class="time-dur">鉄道移動</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1528164344705-475426879c0d?auto=format&fit=crop&w=600&q=80" alt="一畑電車 出雲大社前駅" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><span class="diff-badge-transit">🚌 鉄道体験</span> <i data-lucide="train"></i> 一畑電車（ばたでん）</div>
+                <h4 class="spot-name">電鉄出雲市駅 ➔ レトロな「一畑電車 出雲大社前駅」へ</h4>
+                <p class="spot-desc">
+                  ホテルから徒歩3分の電鉄出雲市駅から乗車（川跡駅乗換・約25分）。到着する出雲大社前駅は、昭和5年建築の美しいステンドグラスを持つ国の登録有形文化財！
+                </p>
+                <div class="family-tip">
+                  <i data-lucide="info"></i>
+                  <strong>相違点:</strong> 車では体験できないローカル鉄道の風情とレトロ駅舎の見学ができます（稲佐の浜へは徒歩20分のため大社境内参拝が中心となります）。
+                </div>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="taisha-station"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=出雲大社前駅" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">09:30</span><span class="time-dur">所要 120分</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card highlight-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1545569341-9eb8b30979d9?auto=format&fit=crop&w=600&q=80" alt="出雲大社" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category highlight-badge"><i data-lucide="landmark"></i> 旅のハイライト</div>
+                <h4 class="spot-name">出雲大社 正式参拝 ＆ 神楽殿の大注連縄</h4>
+                <p class="spot-desc">
+                  勢溜の大鳥居から下り参道を進み、拝殿・御本殿へ。「二礼四拍手一礼」で良縁祈願。神楽殿の大注連縄前で記念撮影し、門前通りでお土産探し。
+                </p>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="taisha"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=出雲大社" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">11:45</span><span class="time-dur">ランチ</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=600&q=80" alt="出雲そば" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><i data-lucide="utensils"></i> ランチ</div>
+                <h4 class="spot-name">神門通りにて出雲割子そばランチ ＆ 出雲ぜんざい</h4>
+                <p class="spot-desc">
+                  門前町の老舗そば店で三段割子そばを堪能。食後は出雲ぜんざい学会などで温かいぜんざいを。
+                </p>
+              </div>
+            </div>
+          </div>
+
+          <div class="transit-indicator"><i data-lucide="train"></i> 一畑電車で松江しんじ湖温泉駅へ（約60分・宍道湖の車窓風景）</div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">14:00</span><span class="time-dur">所要 120分</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card highlight-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1506744038136-46273834b3fb?auto=format&fit=crop&w=600&q=80" alt="松江城と堀川めぐり" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category highlight-badge"><i data-lucide="ship"></i> 国宝天守＆遊覧船</div>
+                <h4 class="spot-name">松江城 ＆ ぐるっと松江 堀川めぐり遊覧船（こたつ船）</h4>
+                <p class="spot-desc">
+                  松江しんじ湖温泉駅から市営バスで大手前へ。国宝天守を仰ぎ、ぽかぽか「こたつ船」で城のお堀をゆったり一周。
+                </p>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="matsue-castle"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=松江城" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">16:30</span><span class="time-dur">夕日鑑賞</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1495616811223-4d98c6e9c869?auto=format&fit=crop&w=600&q=80" alt="宍道湖夕日" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><span class="diff-badge-transit">🚌 バス移動</span> <i data-lucide="sunset"></i> 夕景スポット</div>
+                <h4 class="spot-name">島根県立美術館 湖畔芝生から宍道湖サンセット</h4>
+                <p class="spot-desc">
+                  市内周遊「レイクラインバス」で県立美術館へ。芝生広場に並ぶ「宍道湖うさぎ」を撫でながら茜色の夕日を鑑賞。
+                </p>
+                <div class="card-actions">
+                  <button class="action-chip map-jump-btn" data-spot="art-museum"><i data-lucide="map-pin"></i> 地図で見る</button>
+                  <a class="action-chip gmap-link" href="https://www.google.com/maps/search/?api=1&query=島根県立美術館" target="_blank" rel="noopener"><i data-lucide="external-link"></i> Googleマップ</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="transit-indicator"><i data-lucide="train"></i> JR松江駅から「特急やくも」で出雲市駅へ（約30分で超快適！）</div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">18:00</span><span class="time-dur">特急帰還</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1547496502-affa22d38842?auto=format&fit=crop&w=600&q=80" alt="出雲市駅" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><span class="diff-badge-transit">🚌 新型特急やくも</span> <i data-lucide="bed"></i> 宿帰着</div>
+                <h4 class="spot-name">出雲市駅へ帰着 ➔ ドーミーイン出雲で天然温泉</h4>
+                <p class="spot-desc">
+                  松江駅から最新型特急やくも（ブロンズ車両）でわずか30分！改札を出て1分でホテルに戻れる圧倒的な利便性。大浴場で疲れを洗い流します。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- DAY 3 (Transit) -->
+      <div class="day-panel" id="transit-panel-day3">
+        <div class="day-banner">
+          <div class="day-banner-content">
+            <span class="day-tag">3日目：11月29日(日) 朝食満喫＆空港直行</span>
+            <h3>名物朝食バイキングを堪能し、駅前から空港直行バスへ</h3>
+            <p>ドーミーイン名物の豪華朝食（出雲そば・海の幸小鉢）を心ゆくまで堪能。チェックアウト後は駅前バスターミナルから空港直行バスでラクラク空港へ直行。</p>
+          </div>
+          <div class="day-banner-route">
+            <i data-lucide="navigation"></i> 朝食バイキング ➔ チェックアウト (09:45) ➔ 出雲市駅発 直行バス (10:00発) ➔ 出雲空港 (10:30着) ➔ JAL280便 (12:05発)
+          </div>
+        </div>
+
+        <div class="timeline">
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">08:00</span><span class="time-dur">朝食</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card highlight-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1555396273-367ea4eb4db5?auto=format&fit=crop&w=600&q=80" alt="ドーミーイン朝食" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category highlight-badge"><span class="diff-badge-transit">🚌 朝の贅沢時間</span> <i data-lucide="utensils"></i> ご当地朝食</div>
+                <h4 class="spot-name">ドーミーイン出雲 名物「朝食バイキング」</h4>
+                <p class="spot-desc">
+                  全国のドーミーインでも大人気の朝食バイキング。名物「出雲そば」や日本海の海の幸を盛り放題の海鮮小鉢、郷土料理を家族でゆっくり堪能します。
+                </p>
+                <div class="family-tip">
+                  <i data-lucide="info"></i>
+                  <strong>相違点:</strong> レンタカー返却の慌ただしさがないため、朝はホテルで最も優雅に過ごせるのが公共交通プランの大きな魅力です。
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">10:00</span><span class="time-dur">直行バス</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1513519245088-0e12902e5a38?auto=format&fit=crop&w=600&q=80" alt="出雲空港連絡バス" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><i data-lucide="bus"></i> 空港直行バス</div>
+                <h4 class="spot-name">出雲市駅北口 ➔ 出雲空港行き連絡バス（約30分）</h4>
+                <p class="spot-desc">
+                  ホテル目の前の出雲市駅バスターミナルから空港直行バスに乗車。10:30に空港到着。出発（12:05）まで約1時間30分あるため、空港でお土産選びやカフェを満喫。
+                </p>
+                <div class="card-actions">
+                  <a class="action-chip gmap-link" href="https://www.ichibata.co.jp/bus/rosen/airport.html" target="_blank" rel="noopener"><i data-lucide="external-link"></i> 連絡バス時刻表</a>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="timeline-item">
+            <div class="time-col"><span class="time-badge">12:05</span><span class="time-dur">フライト</span></div>
+            <div class="timeline-dot"></div>
+            <div class="timeline-card">
+              <div class="card-photo">
+                <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?auto=format&fit=crop&w=600&q=80" alt="JAL280便" loading="lazy">
+              </div>
+              <div class="card-info">
+                <div class="spot-category"><i data-lucide="plane-takeoff"></i> JAL280便</div>
+                <h4 class="spot-name">出雲縁結び空港 12:05発 ➔ 東京(羽田) 13:20着</h4>
+                <p class="spot-desc">
+                  全員がゆったり寛げた家族旅行を締めくくり、羽田空港へ帰着。
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- 観光マップ -->
+  <section class="section-container" id="map-section">
+    <div class="section-header text-center">
+      <span class="sub-heading">INTERACTIVE ROUTE MAP</span>
+      <h2 class="section-title">二泊三日 観光ルートマップ</h2>
+      <div class="title-divider"></div>
+      <p class="section-lead" id="map-plan-desc">現在表示中：<strong>🚗 プランA（レンタカーあり）</strong>のルート。ピンをタップすると写真と詳細が開きます。</p>
+    </div>
+
+    <div class="map-wrapper">
+      <div class="map-controls">
+        <span class="map-filter-label"><i data-lucide="filter"></i> 表示:</span>
+        <button class="map-btn active" data-filter="all">全スポット</button>
+        <button class="map-btn" data-filter="day1">1日目</button>
+        <button class="map-btn" data-filter="day2">2日目</button>
+        <button class="map-btn" data-filter="day3">3日目</button>
+      </div>
+
+      <div id="izumoMap" class="map-container"></div>
+
+      <div class="map-legend">
+        <div class="legend-item"><span class="legend-dot dot-hotel"></span> 宿泊（ドーミーイン出雲）</div>
+        <div class="legend-item"><span class="legend-dot dot-day1"></span> 1日目</div>
+        <div class="legend-item"><span class="legend-dot dot-day2"></span> 2日目</div>
+        <div class="legend-item"><span class="legend-dot dot-day3"></span> 3日目</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ドーミーイン出雲 特集セクション -->
+  <section class="section-container bg-subtle" id="dormy-section">
+    <div class="section-header text-center">
+      <span class="sub-heading">HOTEL HIGHLIGHTS</span>
+      <h2 class="section-title">天然温泉 八雲の湯 ドーミーイン出雲が<br class="br-sp">家族旅行に最高な理由</h2>
+      <div class="title-divider"></div>
+      <p class="section-lead">出雲市駅南口徒歩1分。連泊で荷物のパッキング不要、天然温泉と夜鳴きそばで大人も子どもも大満足！</p>
+    </div>
+
+    <div class="dormy-features-grid">
+      <div class="dormy-feature-card">
+        <div class="dormy-icon"><i data-lucide="waves"></i></div>
+        <h3>最上階の天然温泉「八雲の湯」</h3>
+        <p>敷地内から湧出する自家源泉の天然温泉。広々とした内湯、外気を感じる露天風呂、高温サウナ・水風呂を完備。旅の疲れを夜も朝もしっかり癒せます。</p>
+      </div>
+
+      <div class="dormy-feature-card">
+        <div class="dormy-icon"><i data-lucide="soup"></i></div>
+        <h3>名物！無料「夜鳴きそば」サービス</h3>
+        <p>毎晩21:30〜23:00に宿泊者へ無料で振る舞われるあっさり特製醤油ラーメン。観光や夕食のあとの「ちょっと小腹がすいた」子どもたちに大人気！</p>
+      </div>
+
+      <div class="dormy-feature-card">
+        <div class="dormy-icon"><i data-lucide="utensils-crossed"></i></div>
+        <h3>出雲名物が揃う朝食バイキング</h3>
+        <p>名物「出雲そば」や日本海の海の幸を盛り放題の海鮮小鉢、揚げたて天ぷらなど、朝から山陰の味覚を堪能できる大人気のご当地朝食。</p>
+      </div>
+
+      <div class="dormy-feature-card">
+        <div class="dormy-icon"><i data-lucide="luggage"></i></div>
+        <h3>連泊＆駅徒歩1分の最強アクセス</h3>
+        <p>2泊連泊なので中日に荷物をパッキングする手間が一切なし！駅前なので一畑電車・JR・空港バスすべてが目の前。レンタカー駐車場も完備。</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- 持ち物チェックリスト -->
+  <section class="section-container" id="checklist">
+    <div class="section-header text-center">
+      <span class="sub-heading">PACKING CHECKLIST</span>
+      <h2 class="section-title">家族旅行の持ち物チェックリスト</h2>
+      <div class="title-divider"></div>
+      <p class="section-lead">チェックを入れるとスマホのブラウザに自動保存されます。出発前の最終確認にご活用ください。</p>
+    </div>
+
+    <!-- 進捗プログレスバー -->
+    <div class="checklist-progress-box">
+      <div class="progress-header">
+        <span class="progress-label"><i data-lucide="list-checks"></i> 準備の進捗状況</span>
+        <span class="progress-count" id="progressCount">0 / 12 完了 (0%)</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressFill" style="width: 0%;"></div>
+      </div>
+      <div class="progress-complete-msg" id="progressCompleteMsg" style="display: none;">
+        🎉 準備バッチリ！素敵な出雲旅行へ出発しましょう！
+      </div>
+    </div>
+
+    <div class="checklist-grid">
+      <!-- 必需品 -->
+      <div class="check-category">
+        <div class="check-cat-header">
+          <i data-lucide="badge-check"></i>
+          <h4>基本の必需品</h4>
+        </div>
+        <ul class="check-list" id="list-essentials">
+          <li>
+            <label class="check-label">
+              <input type="checkbox" data-key="item-flight-ticket">
+              <span class="check-custom"></span>
+              <span>JAL搭乗用QRコード / eチケット（283便/280便）</span>
+            </label>
+          </li>
+          <li>
+            <label class="check-label">
+              <input type="checkbox" data-key="item-license">
+              <span class="check-custom"></span>
+              <span>運転免許証（レンタカー利用時必須）</span>
+            </label>
+          </li>
+          <li>
+            <label class="check-label">
+              <input type="checkbox" data-key="item-dormy-reserve">
+              <span class="check-custom"></span>
+              <span>ドーミーイン出雲 宿泊予約確認番号・QR</span>
+            </label>
+          </li>
+          <li>
+            <label class="check-label">
+              <input type="checkbox" data-key="item-hoken">
+              <span class="check-custom"></span>
+              <span>健康保険証・子ども医療費受給券</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 出雲ならではの持ち物 -->
+      <div class="check-category">
+        <div class="check-cat-header">
+          <i data-lucide="sparkles"></i>
+          <h4>出雲旅行ならではのアイテム</h4>
+        </div>
+        <ul class="check-list" id="list-izumo">
+          <li>
+            <label class="check-label">
+              <input type="checkbox" data-key="item-sandbag">
+              <span class="check-custom"></span>
+              <span>稲佐の浜のお砂取り用ビニール袋＆スプーン（車利用時）</span>
+            </label>
+          </li>
+          <li>
+            <label class="check-label">
+              <input type="checkbox" data-key="item-goshuin">
+              <span class="check-custom"></span>
+              <span>御朱印帳（出雲大社・神楽殿など）</span>
+            </label>
+          </li>
+          <li>
+            <label class="check-label">
+              <input type="checkbox" data-key="item-coin">
+              <span class="check-custom"></span>
+              <span>お賽銭用の小銭（5円玉・100円玉を多めに準備）</span>
+            </label>
+          </li>
+          <li>
+            <label class="check-label">
+              <input type="checkbox" data-key="item-shoes">
+              <span class="check-custom"></span>
+              <span>歩きやすいスニーカー（玉砂利参道・松江城階段用）</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+
+      <!-- 子ども・防寒向け -->
+      <div class="check-category">
+        <div class="check-cat-header">
+          <i data-lucide="smile"></i>
+          <h4>子ども・防寒安心グッズ</h4>
+        </div>
+        <ul class="check-list" id="list-family">
+          <li>
+            <label class="check-label">
+              <input type="checkbox" data-key="item-warm">
+              <span class="check-custom"></span>
+              <span>防寒着・マフラー（11月下旬の山陰は風が冷たいです）</span>
+            </label>
+          </li>
+          <li>
+            <label class="check-label">
+              <input type="checkbox" data-key="item-towel">
+              <span class="check-custom"></span>
+              <span>フェイスタオル（温泉・足湯ですぐ使えます）</span>
+            </label>
+          </li>
+          <li>
+            <label class="check-label">
+              <input type="checkbox" data-key="item-wipes">
+              <span class="check-custom"></span>
+              <span>除菌ウェットティッシュ・手口ふき</span>
+            </label>
+          </li>
+          <li>
+            <label class="check-label">
+              <input type="checkbox" data-key="item-umbrella">
+              <span class="check-custom"></span>
+              <span>折りたたみ傘（雨具）</span>
+            </label>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="checklist-actions">
+      <button id="resetChecklistBtn" class="btn btn-outline">
+        <i data-lucide="rotate-ccw"></i> チェックをリセット
+      </button>
+      <span class="save-status" id="saveStatus"></span>
+    </div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="footer">
+    <div class="footer-container">
+      <div class="footer-brand">
+        <div class="logo-kanji">出雲旅</div>
+        <p>2026年11月27日〜29日 JAL羽田発着・ドーミーイン出雲連泊プラン</p>
+        <span class="footer-desc">神々の集う地で、家族の絆がよりいっそう深まる素晴らしい旅になりますように。</span>
+      </div>
+      <div class="footer-links">
+        <h4>クイックアクセス</h4>
+        <ul>
+          <li><a href="#hero">トップへ戻る</a></li>
+          <li><a href="#diff-comparison">レンタカーあり/なし違い一覧</a></li>
+          <li><a href="#plan-selector">プラン切り替え</a></li>
+          <li><a href="#itinerary">3日間の旅程表</a></li>
+          <li><a href="#dormy-section">ドーミーイン出雲の魅力</a></li>
+        </ul>
+      </div>
+      <div class="footer-info">
+        <h4>公式交通・観光情報</h4>
+        <ul>
+          <li><a href="https://www.hotespa.net/hotels/izumo/" target="_blank" rel="noopener">天然温泉 八雲の湯 ドーミーイン出雲 公式</a></li>
+          <li><a href="https://www.ichibata.co.jp/bus/" target="_blank" rel="noopener">一畑バス・空港連絡バス時刻表</a></li>
+          <li><a href="https://www.ichibata.co.jp/railway/" target="_blank" rel="noopener">一畑電車（ばたでん）公式</a></li>
+          <li><a href="https://www.izumo-kankou.gr.jp/" target="_blank" rel="noopener">出雲観光協会 公式サイト</a></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer-bottom text-center">
+      <p>&copy; 2026 出雲・松江 家族旅行プランニング. All Rights Reserved.</p>
+    </div>
+  </footer>
+
+  <!-- トップへ戻るボタン（PC向け） -->
+  <button id="backToTopBtn" class="back-to-top" aria-label="ページの先頭へ戻る" title="トップへ戻る">
+    <i data-lucide="chevron-up"></i>
+  </button>
+
+  <!-- スマホ用固定ボトムバー -->
+  <nav class="mobile-bottom-bar" id="mobileBottomBar" aria-label="モバイルナビゲーション">
+    <a href="#diff-comparison" class="mobile-nav-item" data-section="diff-comparison">
+      <i data-lucide="git-compare"></i>
+      <span>比較</span>
+    </a>
+    <a href="#itinerary" class="mobile-nav-item" data-section="itinerary">
+      <i data-lucide="calendar"></i>
+      <span>旅程表</span>
+    </a>
+    <a href="#map-section" class="mobile-nav-item" data-section="map-section">
+      <i data-lucide="map-pin"></i>
+      <span>マップ</span>
+    </a>
+    <a href="#checklist" class="mobile-nav-item" data-section="checklist">
+      <i data-lucide="check-square"></i>
+      <span>持ち物</span>
+    </a>
+    <button id="mobileShareBtn" class="mobile-nav-item">
+      <i data-lucide="share-2"></i>
+      <span>共有</span>
+    </button>
+  </nav>
+
+  <!-- 共有URLモーダル -->
+  <div class="modal-overlay" id="shareModal" role="dialog" aria-modal="true" aria-labelledby="shareModalTitle">
+    <div class="modal-card">
+      <button class="modal-close-btn" id="shareModalCloseBtn" aria-label="閉じる">&times;</button>
+      <div class="modal-body" style="padding: 24px;">
+        <div style="font-size: 2rem; color: var(--color-accent); margin-bottom: 8px;"><i data-lucide="share-2"></i></div>
+        <h3 class="modal-title" id="shareModalTitle">Webサイトをご家族に共有</h3>
+        <p class="modal-desc">
+          公開URLが発行されています。下のボタンでリンクをコピーしてLINEやメールで共有できます。
+        </p>
+        <div class="share-input-group" style="display: flex; flex-direction: column; gap: 10px; margin-top: 14px;">
+          <input type="text" id="shareUrlInput" readonly style="width: 100%; padding: 12px; border: 1px solid var(--color-border); border-radius: 6px; font-size: 0.9rem; background: #fdfdfd;" value="">
+          <button id="copyShareBtn" class="btn btn-primary" style="width: 100%; justify-content: center; padding: 12px; font-size: 0.95rem;">
+            <i data-lucide="copy"></i> URLをコピーする
+          </button>
+        </div>
+        <div id="copyFeedback" style="font-size: 0.85rem; color: #27ae60; margin-top: 10px; font-weight: 700; text-align: center; display: none;">✓ クリップボードにコピーしました！</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  <!-- Main Script -->
+  <script src="js/main.js?v=20261123b"></script>
+</body>
+</html>
