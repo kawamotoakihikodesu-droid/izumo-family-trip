@@ -268,14 +268,14 @@
 
   <main class="container">
     <div class="hero-head">
-      <div class="pill">🐰 案内役：出雲の白うさぎ「むすび」｜全8分40秒</div>
+      <div class="pill">🐰 案内役：出雲の白うさぎ「むすび」｜全5分40秒</div>
       <h1>出雲・松江 2泊3日 家族旅 動画ガイド</h1>
-      <p class="lead">2026年11月27日(金)〜29日(日)｜家族会議のポイントから3日間の見どころ・持ち物まで楽しくまとめました！</p>
+      <p class="lead">2026年11月27日(金)〜29日(日)｜出雲・松江の絶景写真＆イラストで、見どころと家族会議のポイントを楽しく紹介！</p>
     </div>
 
     <section class="player-card">
-      <video id="guideVideo" controls playsinline preload="metadata" poster="video/poster.jpg">
-        <source src="video/izumo_family_trip_guide.mp4" type="video/mp4">
+      <video id="guideVideo" controls playsinline preload="metadata" poster="video/poster.jpg?v=2">
+        <source src="video/izumo_family_trip_guide.mp4?v=2" type="video/mp4">
         お使いのブラウザは動画再生に対応していません。
       </video>
       <div class="player-meta">
@@ -304,21 +304,21 @@
 
   <script>
     const CHAPTERS = [
-      { time: 0.0, tag: "OPENING", title: "01. 神話の国・出雲＆松江 家族旅ガイド" },
-      { time: 29.48, tag: "HOTEL", title: "02. お宿が最高！ドーミーイン出雲" },
-      { time: 62.43, tag: "MAP", title: "03. 希望8スポットの位置関係マップ" },
-      { time: 96.36, tag: "PLAN A vs B", title: "04. レンタカーあり？なし？徹底比較" },
-      { time: 129.51, tag: "家族会議①", title: "05. 水木しげるロードを見送る理由" },
-      { time: 163.58, tag: "家族会議②", title: "06. 大冒険！韓竈神社オプション" },
-      { time: 199.05, tag: "DAY 1", title: "07. 1日目：到着＆出西くらしのvillage" },
-      { time: 238.84, tag: "DAY 2 朝", title: "08. 2日目朝：稲佐の浜＆出雲大社" },
-      { time: 272.71, tag: "DAY 2 昼", title: "09. リニューアル歴史博物館＆出雲そば" },
-      { time: 311.10, tag: "DAY 2 午後①", title: "10. 江戸の町並み「木綿街道」散策" },
-      { time: 345.93, tag: "DAY 2 午後②", title: "11. 国宝・松江城＆亀田山喫茶室" },
-      { time: 381.19, tag: "DAY 2 夕方", title: "12. 宍道湖サンセット＆帰還" },
-      { time: 412.75, tag: "DAY 3", title: "13. 3日目朝：万九千神社＆焼きたてパン" },
-      { time: 450.39, tag: "CHECKLIST", title: "14. 出発前の持ち物チェックリスト" },
-      { time: 487.46, tag: "ENDING", title: "15. さあ、家族会議をはじめよう！" }
+      { time: 0.0, tag: "OPENING", title: "01. 神話の国・出雲＆松江 2泊3日" },
+      { time: 23.51, tag: "HOTEL", title: "02. お宿：ドーミーイン出雲" },
+      { time: 44.84, tag: "AREA MAP", title: "03. 行きたい8スポットの地図" },
+      { time: 64.91, tag: "家族会議①", title: "04. レンタカーあり？なし？比較" },
+      { time: 86.95, tag: "CHECK", title: "05. 水木しげるロードは次回へ！" },
+      { time: 106.88, tag: "ADVENTURE", title: "06. 秘境チャレンジ！韓竈神社" },
+      { time: 129.24, tag: "DAY 1", title: "07. 1日目：出西くらしのvillage" },
+      { time: 153.08, tag: "DAY 2 朝", title: "08. 2日目朝：稲佐の浜＆出雲大社" },
+      { time: 175.74, tag: "DAY 2 昼", title: "09. リニューアル歴史博物館＆出雲そば" },
+      { time: 201.15, tag: "DAY 2 午後", title: "10. 映え町歩き「木綿街道」" },
+      { time: 222.95, tag: "DAY 2 午後", title: "11. 国宝・松江城＆亀田山喫茶室" },
+      { time: 247.53, tag: "DAY 2 夕方", title: "12. 宍道湖サンセット＆特急やくも" },
+      { time: 269.96, tag: "DAY 3 朝", title: "13. 3日目朝：万九千神社＆焼きたてパン" },
+      { time: 294.16, tag: "CHECKLIST", title: "14. 出発前の持ち物チェック！" },
+      { time: 317.00, tag: "ENDING", title: "15. さあ、家族会議をはじめよう！" }
     ];
 
     const video = document.getElementById("guideVideo");
